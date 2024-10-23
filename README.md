@@ -83,19 +83,31 @@ Dado que nuestra aplicación se ha integrado con Docker, si queremos usarlo, deb
     docker exec -it app bash
     ```
 
-3. Generamos la clave de la aplicación.
+3. Luego usando el siguiente comando instalamos las dependencias de Laravel
+
+    ```sh
+    composer install
+    ```
+
+4. Copiamos el archivo .env.example a .env
+
+    ```sh
+    cp .env.example .env
+    ```
+
+5. Generamos la clave de la aplicación.
 
     ```sh
     php artisan key:generate
     ```
 
-4. Generamos la clave de pruebas.
+6. Generamos la clave de pruebas.
 
     ```sh
     php artisan key:generate --env=testing
     ```
 
-5. Ejecutamos las migraciones de nuestra bd del sistema utilizando el siguiente comando:
+7. Ejecutamos las migraciones de nuestra bd del sistema utilizando el siguiente comando:
 
     ```sh
     php artisan migrate
