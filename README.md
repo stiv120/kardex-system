@@ -77,7 +77,7 @@ Dado que nuestra aplicación se ha integrado con Docker, si queremos usarlo, deb
 
 Esto levantará el contenedor, con todos los servicios que necesitamos para ejecutar nuestra aplicación, incluido el servidor a través del cual accederemos a ella a través de este enlace: http://localhost:8081 para ver la aplicación.
 
-2.  Instalamos las dependencias de Laravel, accedemos a nuestro contenedor usando el siguiente comando:
+2.  Accedemos a nuestro contenedor usando el siguiente comando:
 
     ```sh
     docker exec -it app bash
