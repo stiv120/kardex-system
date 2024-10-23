@@ -75,27 +75,27 @@ Dado que nuestra aplicación se ha integrado con Docker, si queremos usarlo, deb
     docker compose up -d
     ```
 
-Esto levantará el contenedor, con todos los servicios que necesitamos para ejecutar nuestra aplicación, incluido el servidor a través del cual accederemos a ella a través de este enlace: http://localhost:8081 para ver la aplicación.
+    Esto levantará el contenedor, con todos los servicios que necesitamos para ejecutar nuestra aplicación, incluido el servidor a través del cual accederemos a ella a través de este enlace: http://localhost:8081 para ver la aplicación.
 
-2.  Accedemos a nuestro contenedor usando el siguiente comando:
+2. Accedemos a nuestro contenedor usando el siguiente comando:
 
     ```sh
     docker exec -it app bash
     ```
 
-3.  Generamos la clave de la aplicación.
+3. Generamos la clave de la aplicación.
 
     ```sh
     php artisan key:generate
     ```
 
-4.  Generamos la clave de pruebas.
+4. Generamos la clave de pruebas.
 
     ```sh
     php artisan key:generate --env=testing
     ```
 
-5.  Ejecutamos las migraciones de nuestra bd del sistema utilizando el siguiente comando:
+5. Ejecutamos las migraciones de nuestra bd del sistema utilizando el siguiente comando:
 
     ```sh
     php artisan migrate
