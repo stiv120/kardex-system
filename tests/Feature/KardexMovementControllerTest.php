@@ -30,7 +30,7 @@ class KardexMovementControllerTest extends TestCase
             'product_id' => $product?->id,
             'type' => 'in',
             'quantity' => 5,
-            'total_price' => $product->unit_price * 5, // By quantity
+            'total_price' => $product?->unit_price * 5, // By quantity
         ];
 
         $response = $this->actingAs($this->user)->postJson('/api/kardex-movements', $data);

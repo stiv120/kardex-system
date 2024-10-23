@@ -67,42 +67,6 @@ El siguiente proyecto es un sistema Kardex que maneja el inventario de una tiend
 
 Dado que nuestra aplicación se ha integrado con Docker, si queremos usarlo, debemos tener instalado Docker Desktop en nuestra máquina, si no lo tienes, aquí tienes el enlace de descarga: https://www.docker.com/products/docker-desktop/ para que nuestra aplicación y los comandos que se dan a continuación funcionen.
 
-1.  Instalamos las dependencias de Laravel, accedemos a nuestro contenedor usando el siguiente comando:
-
-    ```sh
-    docker exec -it app bash
-    ```
-
-2.  Luego usando el siguiente comando
-
-    ```sh
-    composer install
-    ```
-
-3.  Copiamos el archivo .env.example a .env
-
-    ```sh
-    cp .env.example .env
-    ```
-
-4.  Generamos la clave de la aplicación.
-
-    ```sh
-    php artisan key:generate
-    ```
-
-5.  Generamos la clave de pruebas.
-
-    ```sh
-    php artisan key:generate --env=testing
-    ```
-
-6.  Ejecutamos las migraciones de nuestra bd del sistema utilizando el siguiente comando:
-
-    ```sh
-    php artisan migrate
-    ```
-
 ## Iniciamos la aplicación
 
 1. Ejecutamos el siguiente comando:
@@ -112,6 +76,30 @@ Dado que nuestra aplicación se ha integrado con Docker, si queremos usarlo, deb
     ```
 
 Esto levantará el contenedor, con todos los servicios que necesitamos para ejecutar nuestra aplicación, incluido el servidor a través del cual accederemos a ella a través de este enlace: http://localhost:8081 para ver la aplicación.
+
+2.  Instalamos las dependencias de Laravel, accedemos a nuestro contenedor usando el siguiente comando:
+
+    ```sh
+    docker exec -it app bash
+    ```
+
+3.  Generamos la clave de la aplicación.
+
+    ```sh
+    php artisan key:generate
+    ```
+
+4.  Generamos la clave de pruebas.
+
+    ```sh
+    php artisan key:generate --env=testing
+    ```
+
+5.  Ejecutamos las migraciones de nuestra bd del sistema utilizando el siguiente comando:
+
+    ```sh
+    php artisan migrate
+    ```
 
 ## Pruebas
 
