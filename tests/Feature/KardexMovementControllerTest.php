@@ -17,20 +17,20 @@ class KardexMovementControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->user = User::factory()->create(); // Crear un usuario
+        $this->user = User::factory()->create(); // Create a user
     }
 
     public function testStoreKardexMovementIncreasesStock()
     {
-        // Creamos un producto con stock inicial
+        // Create a product with initial stock
         $product = Product::factory()->create(['stock' => 10]);
 
-        // Simulamos una petición para registrar un movimiento de entrada (in)
+        // Simulate a request to register an incoming movement (in)
         $data = [
             'product_id' => $product?->id,
             'type' => 'in',
             'quantity' => 5,
-            'total_price' => $product->unit_price * 5, //Por la cantidad
+            'total_price' => $product->unit_price * 5, // By quantity
         ];
 
         $response = $this->actingAs($this->user)->postJson('/api/kardex-movements', $data);
@@ -38,10 +38,10 @@ class KardexMovementControllerTest extends TestCase
         $response->assertStatus(201)
                  ->assertJson(['message' => 'Kardex movement registered successfully.']);
 
-        // Verificamos que el stock del producto se incrementó
+        // Check that the stock of the product has increased
         $this->assertDatabaseHas('products', [
             'id' => $product?->id,
-            'stock' => 15, // Stock incrementado
+            'stock' => 15, // Stock increased
         ]);
     }
 
@@ -53,7 +53,7 @@ class KardexMovementControllerTest extends TestCase
             'product_id' => $product?->id,
             'type' => 'out',
             'quantity' => 5,
-            'total_price' => $product->unit_price * 5, //Por la cantidad
+            'total_price' => $product->unit_price * 5, // By quantity
         ];
 
         $response = $this->actingAs($this->user)->postJson('/api/kardex-movements', $data);
@@ -61,10 +61,10 @@ class KardexMovementControllerTest extends TestCase
         $response->assertStatus(201)
                  ->assertJson(['message' => 'Kardex movement registered successfully.']);
 
-        // Verificamos que el stock del producto se disminuyó
+        // Check that the stock of the product has decreased
         $this->assertDatabaseHas('products', [
             'id' => $product?->id,
-            'stock' => 5, // Stock disminuido
+            'stock' => 5, // Stock decreased
         ]);
     }
 
@@ -76,17 +76,17 @@ class KardexMovementControllerTest extends TestCase
             'product_id' => $product?->id,
             'type' => 'out',
             'quantity' => 5,
-            'total_price' => $product->unit_price * 5, //Por la cantidad
+            'total_price' => $product->unit_price * 5, // By quantity
         ];
 
         $response = $this->actingAs($this->user)->postJson('/api/kardex-movements', $data);
 
-        $response->assertStatus(422); // Código de error por stock insuficiente
+        $response->assertStatus(422); // Error code for insufficient stock
 
-        // Verificamos que el stock no ha cambiado
+        // Check that the stock has not changed
         $this->assertDatabaseHas('products', [
             'id' => $product?->id,
-            'stock' => 3, // El stock debe seguir igual
+            'stock' => 3, // The stock should remain the same
         ]);
     }
 
@@ -98,10 +98,10 @@ class KardexMovementControllerTest extends TestCase
             'product_id' => $product?->id,
             'type' => 'in',
             'quantity' => 5,
-            'total_price' => $product->unit_price * 5, //Por la cantidad
+            'total_price' => $product->unit_price * 5, // By quantity
         ]);
 
-        // Datos para actualizar el movimiento
+        // Data to update the movement
         $updatedData = [
             'product_id' => $kardexMovement?->product_id,
             'type' => $kardexMovement?->type,
@@ -112,10 +112,10 @@ class KardexMovementControllerTest extends TestCase
         $response->assertStatus(200)
                  ->assertJson(['message' => 'Kardex movement updated successfully.']);
 
-        // Verificamos que el stock del producto ha cambiado
+        // Check that the stock of the product has changed
         $this->assertDatabaseHas('products', [
             'id' => $product?->id,
-            'stock' => 17, // Stock actualizado
+            'stock' => 17, // Stock updated
         ]);
     }
 
@@ -126,7 +126,7 @@ class KardexMovementControllerTest extends TestCase
         $kardexMovement = KardexMovement::factory()->create([
             'product_id' => $product?->id,
             'type' => 'in',
-            'total_price' => $product->unit_price * 5, //Por la cantidad
+            'total_price' => $product->unit_price * 5, // By quantity
             'quantity' => 5,
         ]);
         $response = $this->actingAs($this->user)->deleteJson("/api/kardex-movements/{$kardexMovement?->id}");
@@ -134,7 +134,7 @@ class KardexMovementControllerTest extends TestCase
         $response->assertStatus(200)
                  ->assertJson(['message' => 'Kardex movement deleted successfully.']);
 
-        // Verificamos que el movimiento fue eliminado de la base de datos
+        // Check that the movement was deleted from the database
         $this->assertDatabaseMissing('kardex_movements', [
             'id' => $kardexMovement?->id
         ]);
