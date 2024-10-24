@@ -3,13 +3,13 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Src\KardexMovement\Domain\Repositories\KardexMovementRepositoryInterface;
-use Src\KardexMovement\Infrastructure\Persistence\EloquentKardexMovementRepository;
-use Src\KardexMovement\Application\UseCases\RegisterKardexMovementUseCase;
 use Src\KardexMovement\Application\UseCases\GetAllKardexMovementUseCase;
-use Src\KardexMovement\Application\UseCases\GetKardexMovementByIdUseCase;
 use Src\KardexMovement\Application\UseCases\UpdateKardexMovementUseCase;
 use Src\KardexMovement\Application\UseCases\DeleteKardexMovementUseCase;
+use Src\KardexMovement\Application\UseCases\GetKardexMovementByIdUseCase;
+use Src\KardexMovement\Application\UseCases\RegisterKardexMovementUseCase;
+use Src\KardexMovement\Domain\Repositories\KardexMovementRepositoryInterface;
+use Src\KardexMovement\Infrastructure\Persistence\EloquentKardexMovementRepository;
 
 class KardexMovementServiceProvider extends ServiceProvider
 {
@@ -29,7 +29,10 @@ class KardexMovementServiceProvider extends ServiceProvider
             return new UpdateKardexMovementUseCase($app->make(KardexMovementRepositoryInterface::class));
         });
         $this->app->bind(DeleteKardexMovementUseCase::class, function ($app) {
-            return new DeleteKardexMovementUseCase($app->make(KardexMovementRepositoryInterface::class));
+            return new DeleteKardexMovementUseCase(
+                $app->make(GetKardexMovementByIdUseCase::class),
+                $app->make(KardexMovementRepositoryInterface::class)
+            );
         });
     }
 

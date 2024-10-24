@@ -115,7 +115,7 @@ class KardexMovementControllerTest extends TestCase
         // Check that the stock of the product has changed
         $this->assertDatabaseHas('products', [
             'id' => $product?->id,
-            'stock' => 17, // Stock updated
+            'stock' => 22, // Stock updated
         ]);
     }
 

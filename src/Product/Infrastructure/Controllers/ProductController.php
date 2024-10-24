@@ -44,7 +44,7 @@ class ProductController extends Controller
     {
         $storeProduct = $this->registerProductUseCase->execute($request->all());
         if (!$storeProduct) {
-            throw new CustomJsonException(['message' => 'Error creating product.', 'code' => 500]);
+            throw new CustomJsonException(['message' => 'Error creating product.']);
         }
         return response()->json(['message' => 'Product created successfully.'], 201);
     }
@@ -83,25 +83,11 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, $id)
     {
-        $this->productExists($id);
         $updatedProduct = $this->updateProductUseCase->execute($id, (object) $request->all());
         if (!$updatedProduct) {
-            throw new CustomJsonException(['message' => 'Error updating product.', 'code' => 500]);
+            throw new CustomJsonException(['message' => 'Error updating product.']);
         }
         return response()->json(['message' => 'Product updated successfully.']);
-    }
-
-    /**
-     * Check if the product exists by its ID.
-     * @param int $id
-     * @throws CustomJsonException if the product is not found.
-     */
-    public function productExists($id)
-    {
-        $productExists = $this->getProductByIdUseCase->execute($id);
-        if (!$productExists) {
-            throw new CustomJsonException(['status' => 'info', 'message' => 'Product not found!', 'code' => 404]);
-        }
     }
 
     /**
@@ -112,10 +98,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $this->productExists($id);
         $deletedProduct = $this->deleteProductUseCase->execute($id);
         if (!$deletedProduct) {
-            throw new CustomJsonException(['message' => 'Error deleting product.', 'code' => 500]);
+            throw new CustomJsonException(['message' => 'Error deleting product.']);
         }
         return response()->json(['message' => 'Product deleted successfully.']);
     }

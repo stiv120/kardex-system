@@ -125,25 +125,4 @@ class ProductControllerTest extends TestCase
         // Verify that the product no longer exists in the database
         $this->assertDatabaseMissing('products', ['id' => $product->id]);
     }
-
-    /**
-     * Test the productExists method in the ProductController.
-     * Ensures that it correctly detects existing products and throws an exception for non-existent products.
-     * @return void
-     */
-    public function testProductExists()
-    {
-        $product = Product::factory()->create(); // Create a product
-
-        // Get an instance of the ProductController
-        $controller = app()->make(\Src\Product\Infrastructure\Controllers\ProductController::class);
-
-        // Test existing product
-        $this->assertNull($controller->productExists($product->id)); // Product exists, no exception
-
-        // Test non-existing product
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Product not found!');
-        $controller->productExists(9999); // Product does not exist, should throw exception
-    }
 }

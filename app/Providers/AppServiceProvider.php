@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\KardexMovement;
 use Illuminate\Support\ServiceProvider;
+use Src\KardexMovement\Infrastructure\Observers\KardexMovementObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        KardexMovement::observe(KardexMovementObserver::class);
     }
 }

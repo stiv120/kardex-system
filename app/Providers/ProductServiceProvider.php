@@ -29,7 +29,10 @@ class ProductServiceProvider extends ServiceProvider
             return new UpdateProductUseCase($app->make(ProductRepositoryInterface::class));
         });
         $this->app->bind(DeleteProductUseCase::class, function ($app) {
-            return new DeleteProductUseCase($app->make(ProductRepositoryInterface::class));
+            return new DeleteProductUseCase(
+                $app->make(GetProductByIdUseCase::class),
+                $app->make(ProductRepositoryInterface::class)
+            );
         });
     }
 

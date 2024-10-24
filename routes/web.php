@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/** Products routes */
-Route::resource('products', ProductController::class);
-/** Kardex movements routes */
-Route::resource('kardex-movements', KardexMovementController::class);
+// /** Products routes */
+// Route::resource('products', ProductController::class);
+// /** Kardex movements routes */
+// Route::resource('kardex-movements', KardexMovementController::class);

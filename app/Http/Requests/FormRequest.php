@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest as FormRequestOriginal;
 
@@ -16,11 +15,11 @@ abstract class FormRequest extends FormRequestOriginal
         return true;
     }
 
-    public function failedValidation(Validator $validator)
+    public function failedValidation($validator)
     {
         throw new HttpResponseException(response()->json([
             'message' => 'Validation errors',
-            'errors' => $validator->errors()
+            'errors' => is_array($validator) ? $validator : $validator->errors()
         ], 422));
     }
 }
